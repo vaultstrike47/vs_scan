@@ -112,10 +112,8 @@ if ! /home/ubuntu/scanner/theHarvester/theHarvester.py -d $domain_name -l 500 -b
     exit 1
 fi
 
-cd "${output_path}"
-
 # Extract email addresses
-if ! grep -Eo "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" "harvester_outputfile.xml" > "theharvestor_emails.txt" 2>>"$error_log"; then
+if ! grep -Eo "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" "${output_path}/harvester_outputfile.xml" > "${output_path}/theharvestor_emails.txt" 2>>"$error_log"; then
     error_message="Error extracting emails for $domain_name. Check $error_log for details."
     log_message "$error_message" "$error_log"
     post_to_slack "$error_message"
